@@ -1,4 +1,4 @@
-CREATE SCHEMA `party_games_db` ;
+CREATE SCHEMA `party_games_db`;
 
 CREATE TABLE `party_games_db`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -31,15 +31,15 @@ CREATE TABLE `party_games_db`.`room` (
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-ALTER TABLE `party_games_db`.`room` 
+ALTER TABLE `party_games_db`.`room`
 ADD COLUMN `admin_id` INT NOT NULL AFTER `type`,
 ADD COLUMN `admin_name` VARCHAR(45) NOT NULL AFTER `admin_id`,
 ADD COLUMN `nr_users` INT NOT NULL AFTER `admin_name`,
 ADD COLUMN `max_users` INT NOT NULL AFTER `nr_users`,
 ADD COLUMN `state` VARCHAR(45) NOT NULL AFTER `max_users`,
 ADD INDEX `room_userFK_idx` (`admin_id` ASC) VISIBLE;
-;
-ALTER TABLE `party_games_db`.`room` 
+
+ALTER TABLE `party_games_db`.`room`
 ADD CONSTRAINT `room_userFK`
   FOREIGN KEY (`admin_id`)
   REFERENCES `party_games_db`.`user` (`id`)
@@ -66,4 +66,3 @@ CREATE TABLE `party_games_db`.`connection` (
     REFERENCES `party_games_db`.`user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
-

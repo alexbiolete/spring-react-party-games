@@ -17,7 +17,7 @@ public class UserService {
     }
 
     public List<User> findAllByRoomId(int roomId) {
-        return userRepository.findAll();
+        return userRepository.findAllByRoomId(roomId);
     }
 
     public User getById(int id) {

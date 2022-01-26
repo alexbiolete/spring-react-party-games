@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/all/room")
     public ResponseEntity findAllByRoomId(@RequestParam(name = "roomId") int roomId) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAllByRoomId(roomId));
     }
 
     @GetMapping

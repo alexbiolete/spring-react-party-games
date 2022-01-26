@@ -20,6 +20,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
+    @GetMapping("/all/room")
+    public ResponseEntity findAllByRoomId(@RequestParam(name = "roomId") int roomId) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
+    }
+
     @GetMapping
     public ResponseEntity getById(@RequestParam(name = "userId") int userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getById(userId));

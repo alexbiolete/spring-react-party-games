@@ -8,8 +8,6 @@ import Rooms from "./views/Rooms";
 import NotFound from "./views/NotFound";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
-import Profile from './views/Profile';
-import User from './views/User';
 import DashboardAdmin from './views/DashboardAdmin';
 import DashboardPlayer from './views/DashboardPlayer';
 import Development from './views/Development';
@@ -73,30 +71,6 @@ const App = () => {
               refreshPage={refreshPage}
             >
               <Rooms />
-            </Auth>
-          </Route>
-          <Route path="/profile" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Profile
-                authenticatedUserName={authenticatedUserName}
-                authenticatedUserUsername={authenticatedUserUsername}
-                authenticatedUserEmail={authenticatedUserEmail}
-              />
-            </Auth>
-          </Route>
-          <Route path="/user/:userId" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <User
-                users={users}
-              />
             </Auth>
           </Route>
           <Route path="/dashboard" exact>

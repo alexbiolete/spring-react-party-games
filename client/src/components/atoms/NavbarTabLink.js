@@ -7,7 +7,7 @@ const NavbarTabLink = ({ label, icon, path }) => {
     <Link to={path} className="flex-1">
       <p className={`flex flex-col items-center space-y-1 tracking-tighter
         ${"/".concat(location.pathname.split('/')[1]) !== path ?
-          'text-gray-400 hover:text-gray-200 transition ease-in-out duration-300'
+          'text-gray-400 hover:text-red-500 transition ease-in-out duration-300'
         :
           'text-white'
         }

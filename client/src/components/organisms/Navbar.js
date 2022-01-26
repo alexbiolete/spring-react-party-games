@@ -27,7 +27,7 @@ const Navbar = ({
             <div className="flex-1 inline-flex items-center justify-end">
               <div className="relative">
                 <button
-                  className="flex items-center space-x-0.5 focus:outline-none text-gray-300 md:hover:text-gray-100 md:transition ease-in-out duration-500"
+                  className="flex items-center space-x-0.5 focus:outline-none text-gray-300 md:hover:text-red-500 md:transition ease-in-out duration-500"
                   onClick={() => setShowUserMenu(!showUserMenu)}
                 >
                   <span className="bg-transparent rounded-full overflow-hidden">

@@ -29,75 +29,102 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Home
-            />
-          </Auth>
-        </Route>
-        <Route path="/rooms" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Rooms />
-          </Auth>
-        </Route>
-        <Route path="/profile" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Profile
+      {/* {!localStorage.getItem('user_username') ? (
+        <Switch>
+          <Route path="/" exact>
+            <Guest>
+              <Login
+                setAuthenticatedUserName={setAuthenticatedUserName}
+                refreshPage={refreshPage}
+              />
+            </Guest>
+          </Route>
+          <Route path="/login" exact>
+            <Guest>
+              <Login
+                setAuthenticatedUserName={setAuthenticatedUserName}
+                refreshPage={refreshPage}
+              />
+            </Guest>
+          </Route>
+          <Route path="/signup" exact>
+            <Guest>
+              <Signup refreshPage={refreshPage} />
+            </Guest>
+          </Route>
+          <Route path="*" component={NotFound} />
+        </Switch>
+      ) : ( */}
+        <Switch>
+          <Route path="/" exact>
+            <Auth
               authenticatedUserName={authenticatedUserName}
-              authenticatedUserUsername={authenticatedUserUsername}
-              authenticatedUserEmail={authenticatedUserEmail}
-            />
-          </Auth>
-        </Route>
-        <Route path="/user/:userId" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <User
-              users={users}
-            />
-          </Auth>
-        </Route>
-        <Route path="/dashboard" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            {authenticatedUserRole === "admin" && <DashboardAdmin />}
-            {authenticatedUserRole === "player" && <DashboardPlayer />}
-          </Auth>
-        </Route>
-        <Route path="/dev" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Development />
-          </Auth>
-        </Route>
-        <Route path="*" exact>
-          <Guest>
-            <NotFound />
-          </Guest>
-        </Route>
-      </Switch>
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <Home
+              />
+            </Auth>
+          </Route>
+          <Route path="/rooms" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <Rooms />
+            </Auth>
+          </Route>
+          <Route path="/profile" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <Profile
+                authenticatedUserName={authenticatedUserName}
+                authenticatedUserUsername={authenticatedUserUsername}
+                authenticatedUserEmail={authenticatedUserEmail}
+              />
+            </Auth>
+          </Route>
+          <Route path="/user/:userId" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <User
+                users={users}
+              />
+            </Auth>
+          </Route>
+          <Route path="/dashboard" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              {authenticatedUserRole === "admin" && <DashboardAdmin />}
+              {authenticatedUserRole === "player" && <DashboardPlayer />}
+            </Auth>
+          </Route>
+          <Route path="/dev" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <Development />
+            </Auth>
+          </Route>
+          <Route path="*" exact>
+            <Guest>
+              <NotFound />
+            </Guest>
+          </Route>
+        </Switch>
+      {/* )}; */}
     </BrowserRouter>
   );
 };

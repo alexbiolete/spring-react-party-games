@@ -7,6 +7,7 @@ const RoomCard = ({ room }) => {
   return (
     <Link to={`/room/${room.id}`} className="col-span-1 w-full h-48 px-6 py-4 bg-gray-800 border-2 border-transparent hover:border-gray-700 transition ease-in-out duration-500 rounded-xl flex flex-col justify-between">
       <div className="w-full h-10 flex items-center justify-center">
+          
         <h2 className="bg-gray-900 px-3 py-1.5 rounded-full font-light tracking-widest text-sm uppercase">
           {game.name}
         </h2>
@@ -69,7 +70,7 @@ const RoomCard = ({ room }) => {
           )}
         </span>
         <span className="flex items-center space-x-0.5">
-          {room.userCount > 0 ? (
+          {room.nr_users > 0 ? (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
             </svg>
@@ -79,7 +80,7 @@ const RoomCard = ({ room }) => {
             </svg>
           )}
           <small className="mt-0.5">
-            {room.userCount}{' / '}{room.userMax}
+            {room.nr_users}{' / '}{room.max_users}
           </small>
         </span>
       </div>

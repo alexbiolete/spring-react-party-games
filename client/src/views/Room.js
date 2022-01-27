@@ -6,9 +6,9 @@ import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import axios from 'axios';
 import data from "../testing/data";
 
-const Room = ({refreshPage}) => {
+const Room = ({ refreshPage }) => {
   const { id } = useParams();
-  const room = data.rooms.find(room => room.id === parseInt(id));
+  const [room, setRoom] = useState(data.rooms.find(room => room.id === parseInt(id)));
   const game = data.games.find(game => game.id === room.gameId);
   const [myMessage, setMyMessage] = useState("");
 
@@ -16,14 +16,40 @@ const Room = ({refreshPage}) => {
   const [username, setUsername] = useState(sessionStorage.getItem('user_username'));
   const [userId, setUserId] = useState(sessionStorage.getItem('user_id'));
 
+  const [players, setPlayers] = useState([]);
   const [dataChat, setDataChat] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8081/chat/all/room?roomId=" + room.id)
+    axios.get("http://localhost:8081/room?roomId=" + id)
+      .then(response => {
+        console.log(response.data);
+        setRoom(response.data);
+      });
+
+    axios.get("http://localhost:8081/chat/all/room?roomId=" + id)
       .then(response => {
         console.log(response.data);
         setDataChat(response.data);
       });
+
+    const conn = {
+      "role": "Player",
+      "roomId": id,
+      "score": 0,
+      "userId": userId,
+      "username": username
+    }
+
+    axios.post("http://localhost:8081/connection", conn)
+      .then(response => {
+        axios.get("http://localhost:8081/user/all/room?roomId=" + id)
+        .then(response => {
+          console.log(response.data);
+          setPlayers(response.data);
+        });
+        console.log(response.data);
+      });
+
   }, []);
 
 
@@ -41,7 +67,18 @@ const Room = ({refreshPage}) => {
         console.log(response);
         refreshPage();
       });
-      
+  };
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:8081/room/seed?roomId=" + room.id)
+      .then(response => {
+        console.log(response.data);
+        setRoom(response.data);
+        // refreshPage();
+      });
+
   };
 
   return (
@@ -202,7 +239,7 @@ const Room = ({refreshPage}) => {
               {game.name}
             </span>
             <div className="w-full bg-gray-900 rounded-lg object-cover overflow-hidden">
-              <img className="mx-auto h-full" src={`https://picsum.photos/seed/${Math.random()}/200/300`} />
+              <img className="mx-auto h-full" src={`https://picsum.photos/seed/${room.seed}/200/300`} />
             </div>
           </div>
           <div className="col-span-1 h-full p-4 bg-gray-800 rounded-xl space-y-4">
@@ -254,14 +291,17 @@ const Room = ({refreshPage}) => {
                   required
                 />
                 <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
-                  <ButtonPrimary title="Send" type="submit" onClick={(e) => handleSubmit(e)}  />
+                  <ButtonPrimary title="Send" type="submit" onClick={(e) => handleSubmit(e)} />
+                </div>
+                <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
+                  <ButtonPrimary title="A ghicit" type="submit" onClick={(e) => handleSubmit2(e)} />
                 </div>
               </>
             )}
             {currentTab === 'players' && (
               <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
                 <div className="px-2 py-0.5 m-1 overflow-y-auto">
-                  {data.users.map((user) => (
+                  {players.map((user) => (
                     <div className="flex items-center space-x-1">
                       <div className="text-xs text-white">
                         <span>

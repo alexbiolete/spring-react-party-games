@@ -123,39 +123,6 @@ const Room = () => {
             </div>
             {currentTab === 'chat' && (
               <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
-                <div className="px-2 py-0.5 m-1 overflow-y-auto">
-                  {data.users.map((user) => (
-                    <div className="flex items-center space-x-1">
-                      <div className="text-xs text-white">
-                        <span>
-                          {user.username}
-                        </span>
-                        <span className="font-extralight capitalize">
-                          {' ('}{user.type}{')'}
-                        </span>
-                      </div>
-                      <div>
-                        {user.type !== 'admin' ? (
-                          <button className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                          </button>
-                        ) : (
-                          <button className="invisible">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                            </svg>
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {currentTab === 'players' && (
-              <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
                 <div className="px-2 m-1 overflow-y-auto">
                   <div>
                     <span className="inline text-xs text-blue-400">
@@ -189,6 +156,39 @@ const Room = () => {
                       {'In nostrud cupidatat exercitation excepteur deserunt deserunt duis voluptate ullamco do eiusmod ipsum irure sit.'}
                     </p>
                   </div>
+                </div>
+              </div>
+            )}
+            {currentTab === 'players' && (
+              <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
+                <div className="px-2 py-0.5 m-1 overflow-y-auto">
+                  {data.users.map((user) => (
+                    <div className="flex items-center space-x-1">
+                      <div className="text-xs text-white">
+                        <span>
+                          {user.username}
+                        </span>
+                        <span className="font-extralight capitalize">
+                          {' ('}{user.type}{')'}
+                        </span>
+                      </div>
+                      <div>
+                        {user.type !== 'admin' ? (
+                          <button className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                          </button>
+                        ) : (
+                          <button className="invisible">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

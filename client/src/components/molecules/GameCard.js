@@ -6,7 +6,7 @@ const GameCard = ({ game }) => {
       <div className="h-24 bg-gray-900 rounded-lg flex items-center justify-center overflow-hidden">
         <Fragment>
           {game.image ? (
-            {image}
+            <img src={game.image} alt={game.name} className="w-full h-full object-cover" />
           ) : (
             <span className="text-gray-800">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" viewBox="0 0 20 20" fill="currentColor">

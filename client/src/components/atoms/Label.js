@@ -4,7 +4,7 @@ const Label = ({ id, title }) => {
   return (
     <label
       htmlFor={id}
-      className="absolute -mt-2 left-2 block select-none px-1 font-medium tracking-wider text-xs bg-white rounded"
+      className="px-0.5 select-none font-medium tracking-wider text-sm"
     >
       {title}
     </label>

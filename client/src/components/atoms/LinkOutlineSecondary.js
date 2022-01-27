@@ -9,9 +9,9 @@ const LinkOutlineSecondary = ({
   return (
     <Link
       to={to}
-      className="px-2 py-1.5 bg-transparent border-2 border-gray-600 rounded-full text-gray-600 hover:bg-gray-600 hover:border-gray-600 hover:text-white focus:outline-none transition ease-in-out duration-300"
+      className="flex-1 w-full px-2 py-1.5 border-2 border-gray-500 hover:border-gray-400 rounded-lg text-center text-gray-500 hover:text-gray-400 focus:outline-none transition ease-in-out duration-500"
     >
-      <div className="flex items-center space-x-0.5">
+      <div className="flex items-center justify-center space-x-0.5">
         {children}
         <span className="p-0.5 uppercase text-xs font-semibold tracking-widest">
           {title}

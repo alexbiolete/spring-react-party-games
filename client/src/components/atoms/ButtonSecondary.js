@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const ButtonPrimary = ({
+const ButtonSecondary = ({
   children,
   title,
   type='button',
@@ -8,7 +8,7 @@ const ButtonPrimary = ({
 }) => {
   return (
     <button
-      className="flex-1 w-full px-2 py-1.5 bg-gray-700 border-2 border-transparent hover:border-gray-400 rounded-lg text-gray-100 hover:text-gray-200 focus:outline-none transition ease-in-out duration-300"
+      className="flex-1 w-full px-2 py-1.5 border-2 border-gray-500 hover:border-gray-400 rounded-lg text-center text-gray-500 hover:text-gray-400 focus:outline-none transition ease-in-out duration-500"
       type={type}
       onClick={onClick}
     >
@@ -22,11 +22,11 @@ const ButtonPrimary = ({
   );
 };
 
-ButtonPrimary.propTypes = {
+ButtonSecondary.propTypes = {
   children: PropTypes.any,
   title: PropTypes.string,
   type: PropTypes.string,
   onClick: PropTypes.func
 };
 
-export default ButtonPrimary;
+export default ButtonSecondary;

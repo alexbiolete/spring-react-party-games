@@ -6,29 +6,28 @@ import WrapperInput from '../components/molecules/WrapperInput';
 import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import LinkOutlineSecondary from '../components/atoms/LinkOutlineSecondary';
 
-export default function Signup({ refreshPage }) {
-  const [mail, setMail] = useState("");
+const Register = ({ refreshPage }) => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type1, setType1] = useState("registered");
+  const [userType, setUserType] = useState("registered");
 
   const history = useHistory();
 
-
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     var verify = true;
     const user = {
-      "mail": mail,
-      "username": username,
-      "password": password,
-      "type": type1,
+      username: username,
+      mail: email,
+      password: password,
+      type: userType,
     };
 
-    if (mail == '') {
+    if (username == '') {
       verify = false;
     }
 
-    if (username == '') {
+    if (email == '') {
       verify = false;
     }
 
@@ -37,25 +36,21 @@ export default function Signup({ refreshPage }) {
     }
 
     axios.post("http://localhost:8081/user", user).then((response) => console.log(response));
-    history.push("/login");
-
-  };
-
-  const handleSubmit2 = (e) => {
-    history.push("/")
+    history.push("/");
+    refreshPage();
   };
 
   return (
     <WrapperForm>
       <form>
-        <div className="w-full px-4 py-5 bg-white sm:p-6">
+        <div className="w-full px-4 py-5 bg-gray-800 sm:p-6">
           <div className="flex flex-col items-center space-y-4">
             <WrapperInput
-              id="mail"
+              id="email"
               title="E-mail"
-              type="mail"
-              onChange={(e) => setMail(e.target.value)}
-              value={mail}
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
             />
             <WrapperInput
@@ -74,16 +69,19 @@ export default function Signup({ refreshPage }) {
               value={password}
               required
             />
+            <div className="w-full flex space-x-2">
+              <LinkOutlineSecondary to='/login' title="Log in" />
+              <ButtonPrimary
+                title="Register"
+                type="submit"
+                onClick={(e) => handleRegister(e)}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <ButtonPrimary title="Guest account" type="submit" href="/guest" onClick={(e) => handleSubmit2(e)} />
-        </div>
-        <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
-          <LinkOutlineSecondary to='/login' title="Log in" />
-          <ButtonPrimary title="Sign up" type="submit" href="/login" onClick={(e) => handleSubmit(e)} />
         </div>
       </form>
     </WrapperForm>
   );
-}
+};
+
+export default Register;

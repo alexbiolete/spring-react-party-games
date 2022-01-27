@@ -1,18 +1,32 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ModalCreateRoom from '../organisms/ModalCreateRoom';
+import ButtonSimpleSecondary from '../atoms/ButtonSimpleSecondary';
 import ButtonSimpleDanger from '../atoms/ButtonSimpleDanger';
 
 const DropdownNavbarUser = ({
   showUserMenu,
   setAuthenticatedUserName,
-  refreshPage
+  refreshPage,
+  createRoom
 }) => {
+  const [showModalCreateRoom, setShowModalCreateRoom] = useState(false);
+
   const history = useHistory();
 
   return (
     <div>
       {showUserMenu ? (
         <div className="absolute top-10 right-0 bg-gray-700 rounded-xl overflow-hidden p-1">
+          <ButtonSimpleSecondary
+            title="Create room"
+            onClick={() => setShowModalCreateRoom(!showModalCreateRoom)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="fill-current h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+            </svg>
+          </ButtonSimpleSecondary>
           <ButtonSimpleDanger
             title="Log out"
             onClick={() => {
@@ -37,6 +51,12 @@ const DropdownNavbarUser = ({
       ) : (
         ''
       )}
+
+      <ModalCreateRoom
+        showModalCreateRoom={showModalCreateRoom}
+        setShowModalCreateRoom={setShowModalCreateRoom}
+        onAdd={createRoom}
+      />
     </div>
   );
 };

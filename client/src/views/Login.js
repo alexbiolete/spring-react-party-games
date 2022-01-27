@@ -67,9 +67,9 @@ const Login = ({ setAuthenticatedUserName, refreshPage }) => {
           refreshPage();
         }
 
-        localStorage.setItem('user_id', response.data.id);
-        localStorage.setItem('user_username', response.data.username);
-        localStorage.setItem('user_type', response.data.type);
+        sessionStorage.setItem('user_id', response.data.id);
+        sessionStorage.setItem('user_username', response.data.username);
+        sessionStorage.setItem('user_type', response.data.type);
 
         history.push("/");
         refreshPage();

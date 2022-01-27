@@ -37,7 +37,7 @@ const Navbar = ({
                     </svg>
                   </span>
                   <span className="hidden md:block font-medium tracking-wider text-xs uppercase">
-                    {localStorage.getItem('user_username').length > 15 ? localStorage.getItem('user_username').substr(0, 14) + '...' : localStorage.getItem('user_username')}
+                    {sessionStorage.getItem('user_username').length > 15 ? sessionStorage.getItem('user_username').substr(0, 14) + '...' : sessionStorage.getItem('user_username')}
                   </span>
                 </button>
                 <DropdownNavbarUser

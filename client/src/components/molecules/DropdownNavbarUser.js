@@ -30,10 +30,10 @@ const DropdownNavbarUser = ({
           <ButtonSimpleDanger
             title="Log out"
             onClick={() => {
-              localStorage.removeItem('user_id');
-              localStorage.removeItem('user_name');
-              localStorage.removeItem('user_username');
-              localStorage.removeItem('user_email');
+              sessionStorage.removeItem('user_id');
+              sessionStorage.removeItem('user_name');
+              sessionStorage.removeItem('user_username');
+              sessionStorage.removeItem('user_email');
 
               setAuthenticatedUserName("Account");
 

@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {!localStorage.getItem('user_username') ? (
+      {!sessionStorage.getItem('user_username') ? (
         <Switch>
           <Route path="/" exact>
             <Guest>

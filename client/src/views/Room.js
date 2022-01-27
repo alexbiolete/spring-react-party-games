@@ -108,7 +108,7 @@ const Room = ({ refreshPage }) => {
             )}
           </div>
           <div className="flex items-center space-x-0.5">
-            {room.userCount > 0 ? (
+            {room.nr_users > 0 ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
               </svg>
@@ -118,7 +118,7 @@ const Room = ({ refreshPage }) => {
               </svg>
             )}
             <span className="mt-0.5">
-              {room.userCount}{' / '}{room.userMax}
+              {room.nr_users}{' / '}{room.max_users}
             </span>
           </div>
         </div>
@@ -242,8 +242,8 @@ const Room = ({ refreshPage }) => {
               <img className="mx-auto h-full" src={`https://picsum.photos/seed/${room.seed}/200/300`} />
             </div>
           </div>
-          <div className="col-span-1 h-full p-4 bg-gray-800 rounded-xl space-y-4">
-            <div className="w-full h-8 flex items-center justify-between space-x-2">
+          <div className="col-span-1 flex flex-col p-4 bg-gray-800 rounded-xl space-y-4">
+            <div className="w-full flex items-center justify-between space-x-2">
               <button className={`flex-1 flex items-center justify-center space-x-0.5 px-3 py-1.5 bg-gray-900 border-2 ${currentTab === 'chat' ? 'border-gray-700' : 'border-transparent'} transition ease-in-out duration-500 rounded-lg font-medium tracking-wider uppercase text-center text-gray-300 text-xs`} onClick={() => setCurrentTab('chat')}>
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -282,20 +282,41 @@ const Room = ({ refreshPage }) => {
                     ))}
                   </div>
                 </div>
-                <WrapperInput
-                  id="message"
-                  title="Message"
-                  type="text"
-                  onChange={(e) => setMyMessage(e.target.value)}
-                  value={myMessage}
-                  required
-                />
-                <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
-                  <ButtonPrimary title="Send" type="submit" onClick={(e) => handleSubmit(e)} />
+                <div className="relative w-full">
+                  <input
+                    id="message"
+                    title="Message"
+                    type="text"
+                    className="pl-3 pr-8 py-2 w-full h-10 bg-gray-900 rounded-lg font-light text-sm placeholder-gray-400 border-2 border-transparent focus:border-gray-700 focus:outline-none transition ease-in-out"
+                    onChange={(e) => setMyMessage(e.target.value)}
+                    value={myMessage}
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="absolute top-2 right-2.5 text-gray-600 hover:text-gray-400 transition ease-in-out duration-500"
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                    </svg>
+                  </button>
                 </div>
-                <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
-                  <ButtonPrimary title="A ghicit" type="submit" onClick={(e) => handleSubmit2(e)} />
-                </div>
+                {sessionStorage.getItem('user_type') === 'admin' && (
+                  // <ButtonPrimary title="Guessed" type="submit" onClick={(e) => handleSubmit2(e)} />
+                  <button
+                    type="submit"
+                    className="flex-1 flex items-center justify-center space-x-0.5 w-full px-2 py-1.5 bg-gray-700 border-2 border-transparent hover:border-gray-400 rounded-lg text-gray-100 hover:text-gray-200 focus:outline-none transition ease-in-out duration-300"
+                    onClick={(e) => handleSubmit2(e)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    <span className="mt-0.5 font-medium text-xs uppercase">
+                      {'Guessed'}
+                    </span>
+                  </button>
+                )}
               </>
             )}
             {currentTab === 'players' && (

@@ -16,7 +16,7 @@ const ModalCreateRoom = ({
 
   const [name, setName] = useState('');
   const [maxPlayers, setMaxPlayers] = useState(DEFAULT_MAX_PLAYERS);
-  const [gameId, setGameId] = useState(0);
+  const [gameId, setGameId] = useState(1);
   const [type, setType] = useState(DEFAULT_TYPE);
 
   const onSubmit = (e) => {
@@ -27,8 +27,8 @@ const ModalCreateRoom = ({
     //   return
     // }
     const room = {
-      adminId: parseInt(localStorage.getItem('user_id')),
-      adminName: localStorage.getItem('user_username'),
+      adminId: parseInt(sessionStorage.getItem('user_id')),
+      adminName: sessionStorage.getItem('user_username'),
       gameId: parseInt(gameId),
       name: name,
       // seed: Math.random(),
@@ -84,7 +84,7 @@ const ModalCreateRoom = ({
                       className="w-full h-10 px-4 py-2 rounded-lg bg-gray-900 font-light text-sm text-white"
                       onChange={(e) => setGameId(e.target.value)}
                     >
-                      <option value="0">Guess the picture</option>
+                      <option value="1" default>Guess the picture</option>
                     </select>
                   </div>
                   <div className="flex flex-col space-y-2 font-semibold text-sm text-gray-100">

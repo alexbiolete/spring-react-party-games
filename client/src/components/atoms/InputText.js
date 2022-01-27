@@ -22,7 +22,7 @@ const InputText = ({
           onChange={onChange}
           value={value}
           placeholder={placeholder}
-          className="w-full pl-10 pr-4 py-2 bg-gray-900 rounded-lg font-light text-sm placeholder-gray-400 border-2 border-transparent focus:border-gray-700 focus:outline-none transition ease-in-out duration-300"
+          className="w-full pl-10 pr-4 py-2 bg-gray-900 rounded-lg font-light text-sm placeholder-gray-400 border-2 border-transparent focus:border-gray-700 focus:outline-none transition ease-in-out duration-500"
           required={required}
         />
       ) : (
@@ -35,7 +35,7 @@ const InputText = ({
           onChange={onChange}
           value={value}
           placeholder={placeholder}
-          className="w-full px-4 py-2 bg-gray-900 rounded-lg font-light text-sm placeholder-gray-400 border-2 border-transparent focus:border-gray-700 focus:outline-none transition ease-in-out duration-300"
+          className="w-full px-4 py-2 bg-gray-900 rounded-lg font-light text-sm placeholder-gray-400 border-2 border-transparent focus:border-gray-700 focus:outline-none transition ease-in-out duration-500"
           required={required}
         />
       )}

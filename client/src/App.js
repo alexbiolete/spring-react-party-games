@@ -47,11 +47,6 @@ const App = () => {
               <Login setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
             </Guest>
           </Route>
-          <Route path="/guest" exact>
-            <Guest>
-              <GuestAcc />
-            </Guest>
-          </Route>
           <Route path="*" component={NotFound} />
         </Switch>
       ) : (
@@ -89,7 +84,7 @@ const App = () => {
               refreshPage={refreshPage}
               createRoom={createRoom}
             >
-              <Room />
+              <Room refreshPage={refreshPage} />
             </Auth>
           </Route>
           <Route path="/dashboard" exact>

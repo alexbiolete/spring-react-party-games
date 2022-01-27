@@ -13,7 +13,7 @@ const WrapperInput = ({
   required
 }) => {
   return (
-    <div className="relative w-full text-gray-600 mt-2">
+    <div className="relative w-full text-gray-100 mt-2 space-y-2">
       <Label id={id} title={title} />
       {children ? (
         <InputText

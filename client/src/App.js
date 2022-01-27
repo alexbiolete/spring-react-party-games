@@ -7,11 +7,9 @@ import Home from "./views/Home";
 import Rooms from "./views/Rooms";
 import Room from './views/Room';
 import NotFound from "./views/NotFound";
+import Register from './views/Register';
 import Login from "./views/Login";
-import Signup from "./views/Signup";
-import GuestAcc from "./views/Guest";
 import Dashboard from './views/Dashboard';
-import CreateRoom from './views/CreateRoom';
 
 const App = () => {
   const [authenticatedUserId, setAuthenticatedUserId] = useState('');
@@ -26,82 +24,85 @@ const App = () => {
     window.location.reload(false);
   }
 
+  const createRoom = () => {
+    return ('')
+  };
+
   return (
     <BrowserRouter>
-      {/* {!localStorage.getItem('user_username') ? (
+      {!localStorage.getItem('user_username') ? (
         <Switch>
           <Route path="/" exact>
             <Guest>
-              <Login
-                setAuthenticatedUserName={setAuthenticatedUserName}
-                refreshPage={refreshPage}
-              />
+              <Login setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
+            </Guest>
+          </Route>
+          <Route path="/register" exact>
+            <Guest>
+              <Register setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
             </Guest>
           </Route>
           <Route path="/login" exact>
             <Guest>
-              <Login
-                setAuthenticatedUserName={setAuthenticatedUserName}
-                refreshPage={refreshPage}
-              />
-            </Guest>
-          </Route>
-          <Route path="/signup" exact>
-            <Guest>
-              <Signup refreshPage={refreshPage} />
+              <Login setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
             </Guest>
           </Route>
           <Route path="*" component={NotFound} />
         </Switch>
-      ) : ( */}
-      <Switch>
-        <Route path="/" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Home
-            />
-          </Auth>
-        </Route>
-        <Route path="/rooms" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Rooms />
-          </Auth>
-        </Route>
-        <Route path="/room/:id" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Room refreshPage={refreshPage}/>
-          </Auth>
-        </Route>
-        <Route path="/dashboard" exact>
-          <Auth
-            authenticatedUserName={authenticatedUserName}
-            setAuthenticatedUserName={setAuthenticatedUserName}
-            refreshPage={refreshPage}
-          >
-            <Dashboard />
-          </Auth>
-        </Route>
-        <Route path="/login" component={Login} exact />
-        <Route path="/signup" component={Signup} exact />
-        <Route path="/guest" component={GuestAcc} exact />
-        <Route path="*" exact>
-          <Guest>
-            <NotFound />
-          </Guest>
-        </Route>
-      </Switch>
-      {/* )}; */}
+      ) : (
+        <Switch>
+          <Route path="/" exact>
+            <Auth
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+              createRoom={createRoom}
+            >
+              <Home />
+            </Auth>
+          </Route>
+          <Route path="/home" exact>
+            <Auth
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+              createRoom={createRoom}
+            >
+              <Home />
+            </Auth>
+          </Route>
+          <Route path="/rooms" exact>
+            <Auth
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+              createRoom={createRoom}
+            >
+              <Rooms />
+            </Auth>
+          </Route>
+          <Route path="/room/:id" exact>
+            <Auth
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+              createRoom={createRoom}
+            >
+              <Room />
+            </Auth>
+          </Route>
+          <Route path="/dashboard" exact>
+            <Auth
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+              createRoom={createRoom}
+            >
+              <Dashboard />
+            </Auth>
+          </Route>
+          <Route path="*" exact>
+            <Guest>
+              <NotFound />
+            </Guest>
+          </Route>
+        </Switch>
+      )}
     </BrowserRouter>
   );
 };

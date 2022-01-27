@@ -27,4 +27,6 @@ public class Room {
     int max_users;
     @Column(name="state")
     String state;
+    @Column(name="seed")
+    int seed;
 }

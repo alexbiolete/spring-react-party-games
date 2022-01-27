@@ -5,20 +5,18 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="connection")
+@Table(name="chat")
 @Data
-public class Connection {
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name="room_id")
-    int roomId;
+    int room_id;
     @Column(name="user_id")
-    int userId;
-    @Column(name="role")
-    String role;
-    @Column(name="score")
-    int score;
+    int user_id;
     @Column(name="username")
     String username;
+    @Column(name="message")
+    String message;
 }

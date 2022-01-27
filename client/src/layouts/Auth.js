@@ -15,7 +15,7 @@ const Auth = ({
         setAuthenticatedUserName={setAuthenticatedUserName}
         refreshPage={refreshPage}
       />
-      <main className="max-w-7xl w-full mt-16 mb-16 md:mb-0 mx-auto">
+      <main className="max-w-7xl w-full mt-16 mb-4 md:mb-0 mx-auto">
         <div className="p-4">
           {children}
         </div>

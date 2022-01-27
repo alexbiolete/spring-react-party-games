@@ -32,14 +32,14 @@ export default function Login({ refreshPage }) {
 
       })
       .catch((response) => {
-        history.push("/signup");
+        history.push("/");
       });
   };
 
   return (
     <WrapperForm>
       <form>
-        <div className="w-full px-4 py-5 bg-white sm:p-6">
+        <div className="w-full px-4 py-5 bg-gray-800 sm:p-6">
           <div className="flex flex-col items-center space-y-4">
             <WrapperInput
               id="username"
@@ -59,7 +59,7 @@ export default function Login({ refreshPage }) {
             />
           </div>
         </div>
-        <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
+        <div className="flex items-center justify-end space-x-3 p-3 bg-gray-800 text-right">
           <LinkOutlineSecondary to='/signup' title="Sign up" />
           <ButtonPrimary title="Log in" type="submit" onClick={(e) => handleSubmit(e)} />
         </div>

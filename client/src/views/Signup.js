@@ -42,7 +42,7 @@ export default function Signup({ refreshPage }) {
   };
 
   const handleSubmit2 = (e) => {
-    history.push("/guest")
+    history.push("/")
   };
 
   return (

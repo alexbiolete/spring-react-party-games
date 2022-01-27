@@ -66,8 +66,6 @@ CREATE TABLE `party_games_db`.`connection` (
     REFERENCES `party_games_db`.`user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
-<<<<<<< HEAD:db.sql
-=======
 
 
 CREATE TABLE `party_games_db`.`chat` (
@@ -94,4 +92,13 @@ CREATE TABLE `party_games_db`.`chat` (
 ALTER TABLE `party_games_db`.`connection` 
 ADD COLUMN `username` VARCHAR(45) NOT NULL AFTER `score`;
 
->>>>>>> claudiu:bazaDeDate.txt
+
+ALTER TABLE `party_games_db`.`chat` 
+CHANGE COLUMN `username` `username` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `party_games_db`.`connection` 
+DROP COLUMN `seed`;
+
+ALTER TABLE `party_games_db`.`room` 
+ADD COLUMN `seed` INT NOT NULL AFTER `state`;
+

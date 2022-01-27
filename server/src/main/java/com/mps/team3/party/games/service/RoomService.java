@@ -29,4 +29,8 @@ public class RoomService {
         roomRepository.delete(room);
         return room;
     }
+
+    public void incrementSeed(int roomId) {
+        roomRepository.incrementSeed(roomId);
+    }
 }

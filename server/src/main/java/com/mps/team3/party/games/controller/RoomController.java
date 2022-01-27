@@ -25,6 +25,12 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getById(roomId));
     }
 
+    @PostMapping("/seed")
+    public ResponseEntity incrementSeed(@RequestParam(name = "roomId") int roomId) {
+        roomService.incrementSeed(roomId);
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.getById(roomId));
+    }
+
     @PostMapping
     public ResponseEntity createRoom(@RequestBody Room room) {
         return ResponseEntity.status(HttpStatus.CREATED).body(roomService.save(room));

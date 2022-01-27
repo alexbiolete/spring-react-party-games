@@ -1,40 +1,25 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Separator from "../components/atoms/Separator";
+import axios from 'axios';
 import data from "../testing/data";
-import SockJS from "sockjs-client";
-import Stomp from "react-stomp";
 
 const Room = () => {
   const { id } = useParams();
   const room = data.rooms.find(room => room.id === parseInt(id));
   const game = data.games.find(game => game.id === room.gameId);
-  const [username, setUsername] = useState(() => JSON.parse(localStorage.getItem("user_username")));
+
   const [currentTab, setCurrentTab] = useState('chat');
-  let stompClient;
+  const [username, setUsername] = useState(sessionStorage.getItem('user_username'))
 
-  const connect = (event) => {
-    if (username) {
-      const socket = new SockJS('/chat-example')
-      stompClient = Stomp.over(socket)
-      stompClient.connect({}, onConnected, onError)
-    }
-    event.preventDefault()
-  }
+  // const [data, setData] = useState();
 
-  const onConnected = () => {
-    stompClient.subscribe('/topic/public', onMessageReceived)
-    stompClient.send("/app/chat.newUser",
-      {},
-      JSON.stringify({ sender: username, type: 'CONNECT' })
-    )
-  }
-
-  const onError = (error) => {
-    const status = document.querySelector('#status')
-    status.innerHTML = 'Could not find the connection you were looking for. Move along. Or, Refresh the page!'
-    status.style.color = 'red'
-  }
+  // useEffect(() => {
+  //   axios.get("http://localhost:8081/chat")
+  //     .then(response => {
+  //       setData(response.data);
+  //     });
+  // }, []);
 
   return (
     <div className="space-y-4">
@@ -194,7 +179,7 @@ const Room = () => {
               {game.name}
             </span>
             <div className="w-full h-60 bg-gray-900 rounded-lg">
-
+              <img src={require('../testing/test1.jpeg')}/>
             </div>
           </div>
           <div className="col-span-1 h-80 p-4 bg-gray-800 rounded-xl space-y-4">
@@ -224,38 +209,16 @@ const Room = () => {
             {currentTab === 'chat' && (
               <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
                 <div className="px-2 m-1 overflow-y-auto">
-                  <div>
-                    <span className="inline text-xs text-blue-400">
-                      {'Alex'}{': '}
-                    </span>
-                    <p className="inline font-extralight text-xs">
-                      {'Amet qui Lorem ea nostrud dolor sint in quis anim.'}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="inline text-xs text-green-400">
-                      {'Peter'}{': '}
-                    </span>
-                    <p className="inline font-extralight text-xs">
-                      {'Ullamco nisi nostrud culpa aliqua esse sint est exercitation dolore occaecat ut eu.'}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="inline text-xs text-pink-400">
-                      {'Anna'}{': '}
-                    </span>
-                    <p className="inline font-extralight text-xs">
-                      {'Labore aliqua ut nisi ex.'}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="inline text-xs text-blue-400">
-                      {'Alex'}{': '}
-                    </span>
-                    <p className="inline font-extralight text-xs">
-                      {'In nostrud cupidatat exercitation excepteur deserunt deserunt duis voluptate ullamco do eiusmod ipsum irure sit.'}
-                    </p>
-                  </div>
+                  {data.chatMessages.map((chatMessage) => (
+                    <div>
+                      <span className="inline text-xs text-blue-400">
+                        {chatMessage.userId}{': '}
+                      </span>
+                      <p className="inline font-extralight text-xs">
+                        {chatMessage.text}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

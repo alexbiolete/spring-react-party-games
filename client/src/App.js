@@ -5,12 +5,11 @@ import Guest from "./layouts/Guest";
 import Auth from "./layouts/Auth";
 import Home from "./views/Home";
 import Rooms from "./views/Rooms";
+import Room from './views/Room';
 import NotFound from "./views/NotFound";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
-import DashboardAdmin from './views/DashboardAdmin';
-import DashboardPlayer from './views/DashboardPlayer';
-import Development from './views/Development';
+import Dashboard from './views/Dashboard';
 
 const App = () => {
   const [authenticatedUserId, setAuthenticatedUserId] = useState('0');
@@ -73,23 +72,22 @@ const App = () => {
               <Rooms />
             </Auth>
           </Route>
+          <Route path="/room/:id" exact>
+            <Auth
+              authenticatedUserName={authenticatedUserName}
+              setAuthenticatedUserName={setAuthenticatedUserName}
+              refreshPage={refreshPage}
+            >
+              <Room />
+            </Auth>
+          </Route>
           <Route path="/dashboard" exact>
             <Auth
               authenticatedUserName={authenticatedUserName}
               setAuthenticatedUserName={setAuthenticatedUserName}
               refreshPage={refreshPage}
             >
-              {authenticatedUserRole === "admin" && <DashboardAdmin />}
-              {authenticatedUserRole === "player" && <DashboardPlayer />}
-            </Auth>
-          </Route>
-          <Route path="/dev" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Development />
+              <Dashboard />
             </Auth>
           </Route>
           <Route path="*" exact>

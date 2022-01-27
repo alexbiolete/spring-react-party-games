@@ -17,7 +17,7 @@ const Navbar = ({
             <div className="flex-1 inline-flex md:hidden items-center justify-begin">
             </div>
             <div className="flex-1 flex items-center">
-              <h1 class="mx-auto md:mx-0 text-2xl uppercase font-light tracking-widest truncate">
+              <h1 className="mx-auto md:mx-0 text-2xl uppercase font-light tracking-widest truncate">
                 {'Party Games'}
               </h1>
             </div>

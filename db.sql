@@ -66,3 +66,36 @@ CREATE TABLE `party_games_db`.`connection` (
     REFERENCES `party_games_db`.`user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+
+CREATE TABLE `party_games_db`.`chat` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `room_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `username` INT NOT NULL,
+  `message` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `chat_room_fk_idx` (`room_id` ASC) VISIBLE,
+  INDEX `chat_user_fk_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `chat_room_fk`
+    FOREIGN KEY (`room_id`)
+    REFERENCES `party_games_db`.`room` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `chat_user_fk`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `party_games_db`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+ALTER TABLE `party_games_db`.`connection`
+ADD COLUMN `username` VARCHAR(45) NOT NULL AFTER `score`;
+
+ALTER TABLE `party_games_db`.`chat`
+CHANGE COLUMN `username` `username` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `party_games_db`.`connection`
+DROP COLUMN `seed`;
+
+ALTER TABLE `party_games_db`.`room`
+ADD COLUMN `seed` INT NOT NULL AFTER `state`;

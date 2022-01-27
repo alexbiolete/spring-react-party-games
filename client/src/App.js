@@ -80,7 +80,7 @@ const App = () => {
             setAuthenticatedUserName={setAuthenticatedUserName}
             refreshPage={refreshPage}
           >
-            <Room />
+            <Room refreshPage={refreshPage}/>
           </Auth>
         </Route>
         <Route path="/dashboard" exact>

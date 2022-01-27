@@ -1,25 +1,48 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Separator from "../components/atoms/Separator";
+import WrapperInput from "../components/molecules/WrapperInput";
+import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import axios from 'axios';
 import data from "../testing/data";
 
-const Room = () => {
+const Room = ({refreshPage}) => {
   const { id } = useParams();
   const room = data.rooms.find(room => room.id === parseInt(id));
   const game = data.games.find(game => game.id === room.gameId);
+  const [myMessage, setMyMessage] = useState("");
 
   const [currentTab, setCurrentTab] = useState('chat');
-  const [username, setUsername] = useState(sessionStorage.getItem('user_username'))
+  const [username, setUsername] = useState(sessionStorage.getItem('user_username'));
+  const [userId, setUserId] = useState(sessionStorage.getItem('user_id'));
 
-  // const [data, setData] = useState();
+  const [dataChat, setDataChat] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8081/chat")
-  //     .then(response => {
-  //       setData(response.data);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios.get("http://localhost:8081/chat/all/room?roomId=" + room.id)
+      .then(response => {
+        console.log(response.data);
+        setDataChat(response.data);
+      });
+  }, []);
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const chatMessage = {
+      "message": myMessage,
+      "room_id": room.id,
+      "user_id": userId,
+      "username": username
+    };
+    console.log(chatMessage);
+    axios.post("http://localhost:8081/chat", chatMessage)
+      .then(response => {
+        console.log(response);
+        refreshPage();
+      });
+      
+  };
 
   return (
     <div className="space-y-4">
@@ -178,11 +201,11 @@ const Room = () => {
             <span className="h-8 flex items-center justify-center font-light tracking-wider uppercase text-center text-sm">
               {game.name}
             </span>
-            <div className="w-full h-60 bg-gray-900 rounded-lg">
-              <img src={require('../testing/test1.jpeg')}/>
+            <div className="w-full bg-gray-900 rounded-lg object-cover overflow-hidden">
+              <img className="mx-auto h-full" src={`https://picsum.photos/seed/${Math.random()}/200/300`} />
             </div>
           </div>
-          <div className="col-span-1 h-80 p-4 bg-gray-800 rounded-xl space-y-4">
+          <div className="col-span-1 h-full p-4 bg-gray-800 rounded-xl space-y-4">
             <div className="w-full h-8 flex items-center justify-between space-x-2">
               <button className={`flex-1 flex items-center justify-center space-x-0.5 px-3 py-1.5 bg-gray-900 border-2 ${currentTab === 'chat' ? 'border-gray-700' : 'border-transparent'} transition ease-in-out duration-500 rounded-lg font-medium tracking-wider uppercase text-center text-gray-300 text-xs`} onClick={() => setCurrentTab('chat')}>
                 <span>
@@ -207,20 +230,33 @@ const Room = () => {
               </button>
             </div>
             {currentTab === 'chat' && (
-              <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
-                <div className="px-2 m-1 overflow-y-auto">
-                  {data.chatMessages.map((chatMessage) => (
-                    <div>
-                      <span className="inline text-xs text-blue-400">
-                        {chatMessage.userId}{': '}
-                      </span>
-                      <p className="inline font-extralight text-xs">
-                        {chatMessage.text}
-                      </p>
-                    </div>
-                  ))}
+              <>
+                <div className="w-full h-full bg-gray-900 rounded-lg overflow-hidden">
+                  <div className="px-2 m-1 overflow-y-scroll">
+                    {dataChat.map((chatMessage) => (
+                      <div key={chatMessage.id}>
+                        <span className="inline text-xs text-blue-400">
+                          {chatMessage.username}{': '}
+                        </span>
+                        <p className="inline font-extralight text-xs">
+                          {chatMessage.message}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+                <WrapperInput
+                  id="message"
+                  title="Message"
+                  type="text"
+                  onChange={(e) => setMyMessage(e.target.value)}
+                  value={myMessage}
+                  required
+                />
+                <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
+                  <ButtonPrimary title="Send" type="submit" onClick={(e) => handleSubmit(e)}  />
+                </div>
+              </>
             )}
             {currentTab === 'players' && (
               <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">

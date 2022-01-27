@@ -2,13 +2,39 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Separator from "../components/atoms/Separator";
 import data from "../testing/data";
+import SockJS from "sockjs-client";
+import Stomp from "react-stomp";
 
 const Room = () => {
   const { id } = useParams();
   const room = data.rooms.find(room => room.id === parseInt(id));
   const game = data.games.find(game => game.id === room.gameId);
-
+  const [username, setUsername] = useState(() => JSON.parse(localStorage.getItem("user_username")));
   const [currentTab, setCurrentTab] = useState('chat');
+  let stompClient;
+
+  const connect = (event) => {
+    if (username) {
+      const socket = new SockJS('/chat-example')
+      stompClient = Stomp.over(socket)
+      stompClient.connect({}, onConnected, onError)
+    }
+    event.preventDefault()
+  }
+
+  const onConnected = () => {
+    stompClient.subscribe('/topic/public', onMessageReceived)
+    stompClient.send("/app/chat.newUser",
+      {},
+      JSON.stringify({ sender: username, type: 'CONNECT' })
+    )
+  }
+
+  const onError = (error) => {
+    const status = document.querySelector('#status')
+    status.innerHTML = 'Could not find the connection you were looking for. Move along. Or, Refresh the page!'
+    status.style.color = 'red'
+  }
 
   return (
     <div className="space-y-4">

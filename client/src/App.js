@@ -9,14 +9,16 @@ import Room from './views/Room';
 import NotFound from "./views/NotFound";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
+import GuestAcc from "./views/Guest";
 import Dashboard from './views/Dashboard';
+import CreateRoom from './views/CreateRoom';
 
 const App = () => {
-  const [authenticatedUserId, setAuthenticatedUserId] = useState('0');
-  const [authenticatedUserName, setAuthenticatedUserName] = useState('Account');
-  const [authenticatedUserUsername, setAuthenticatedUserUsername] = useState('account');
-  const [authenticatedUserEmail, setAuthenticatedUserEmail] = useState('account@localhost');
-  const [authenticatedUserRole, setAuthenticatedUserRole] = useState('player');
+  const [authenticatedUserId, setAuthenticatedUserId] = useState('');
+  const [authenticatedUserName, setAuthenticatedUserName] = useState('');
+  const [authenticatedUserUsername, setAuthenticatedUserUsername] = useState('');
+  const [authenticatedUserEmail, setAuthenticatedUserEmail] = useState('');
+  const [authenticatedUserRole, setAuthenticatedUserRole] = useState('');
 
   const [users, setUsers] = useState([]);
 
@@ -52,50 +54,53 @@ const App = () => {
           <Route path="*" component={NotFound} />
         </Switch>
       ) : ( */}
-        <Switch>
-          <Route path="/" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Home
-              />
-            </Auth>
-          </Route>
-          <Route path="/rooms" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Rooms />
-            </Auth>
-          </Route>
-          <Route path="/room/:id" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Room />
-            </Auth>
-          </Route>
-          <Route path="/dashboard" exact>
-            <Auth
-              authenticatedUserName={authenticatedUserName}
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-            >
-              <Dashboard />
-            </Auth>
-          </Route>
-          <Route path="*" exact>
-            <Guest>
-              <NotFound />
-            </Guest>
-          </Route>
-        </Switch>
+      <Switch>
+        <Route path="/" exact>
+          <Auth
+            authenticatedUserName={authenticatedUserName}
+            setAuthenticatedUserName={setAuthenticatedUserName}
+            refreshPage={refreshPage}
+          >
+            <Home
+            />
+          </Auth>
+        </Route>
+        <Route path="/rooms" exact>
+          <Auth
+            authenticatedUserName={authenticatedUserName}
+            setAuthenticatedUserName={setAuthenticatedUserName}
+            refreshPage={refreshPage}
+          >
+            <Rooms />
+          </Auth>
+        </Route>
+        <Route path="/room/:id" exact>
+          <Auth
+            authenticatedUserName={authenticatedUserName}
+            setAuthenticatedUserName={setAuthenticatedUserName}
+            refreshPage={refreshPage}
+          >
+            <Room />
+          </Auth>
+        </Route>
+        <Route path="/dashboard" exact>
+          <Auth
+            authenticatedUserName={authenticatedUserName}
+            setAuthenticatedUserName={setAuthenticatedUserName}
+            refreshPage={refreshPage}
+          >
+            <Dashboard />
+          </Auth>
+        </Route>
+        <Route path="/login" component={Login} exact />
+        <Route path="/signup" component={Signup} exact />
+        <Route path="/guest" component={GuestAcc} exact />
+        <Route path="*" exact>
+          <Guest>
+            <NotFound />
+          </Guest>
+        </Route>
+      </Switch>
       {/* )}; */}
     </BrowserRouter>
   );

@@ -6,35 +6,41 @@ import WrapperInput from '../components/molecules/WrapperInput';
 import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import LinkOutlineSecondary from '../components/atoms/LinkOutlineSecondary';
 
-export default function Login({ refreshPage }) {
+export default function GuestAcc({ refreshPage }) {
+  const [mail, setMail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [type1, setType1] = useState("guest");
+
   const history = useHistory();
 
+
   const handleSubmit = (e) => {
-    e.preventDefault();
+    var verify = true;
     const user = {
+      "mail": username,
       "username": username,
-      "password": password,
+      "password": username,
+      "type": type1,
     };
-    axios.post("http://localhost:8081/user/login", user)
-      .then(response => {
-        if (response.data.username == "" && response.data.password == "") {
-          history.push("/login");
-          refreshPage();
-        }
 
-        localStorage.setItem('user_id', response.data.id);
-        localStorage.setItem('user_username', response.data.username);
-        localStorage.setItem('user_email', response.data.mail);
-        localStorage.setItem('user_type', response.data.type);
-        history.push("/rooms");
+    if (mail == '') {
+      verify = false;
+    }
 
-      })
-      .catch((response) => {
-        history.push("/signup");
-      });
+    if (username == '') {
+      verify = false;
+    }
+
+    if (password == '') {
+      verify = false;
+    }
+
+    axios.post("http://localhost:8081/user", user).then((response) => console.log(response));
+    history.push("/rooms");
+
   };
+
 
   return (
     <WrapperForm>
@@ -49,19 +55,10 @@ export default function Login({ refreshPage }) {
               value={username}
               required
             />
-            <WrapperInput
-              id="password"
-              title="Password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
           </div>
         </div>
         <div className="flex items-center justify-end space-x-3 p-3 bg-gray-50 text-right">
-          <LinkOutlineSecondary to='/signup' title="Sign up" />
-          <ButtonPrimary title="Log in" type="submit" onClick={(e) => handleSubmit(e)} />
+          <ButtonPrimary title="Login" type="submit" onClick={(e) => handleSubmit(e)} />
         </div>
       </form>
     </WrapperForm>

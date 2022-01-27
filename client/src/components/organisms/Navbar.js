@@ -3,9 +3,9 @@ import NavbarTabs from '../molecules/NavbarTabs';
 import DropdownNavbarUser from '../molecules/DropdownNavbarUser';
 
 const Navbar = ({
-  authenticatedUserName,
   setAuthenticatedUserName,
-  refreshPage
+  refreshPage,
+  createRoom
 }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -37,10 +37,15 @@ const Navbar = ({
                     </svg>
                   </span>
                   <span className="hidden md:block font-medium tracking-wider text-xs uppercase">
-                    {authenticatedUserName.length > 15 ? authenticatedUserName.substr(0, 14) + '...' : authenticatedUserName}
+                    {localStorage.getItem('user_username').length > 15 ? localStorage.getItem('user_username').substr(0, 14) + '...' : localStorage.getItem('user_username')}
                   </span>
                 </button>
-                <DropdownNavbarUser showUserMenu={showUserMenu} setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
+                <DropdownNavbarUser
+                  showUserMenu={showUserMenu}
+                  setAuthenticatedUserName={setAuthenticatedUserName}
+                  refreshPage={refreshPage}
+                  // createRoom={createRoom}
+                />
               </div>
             </div>
           </div>

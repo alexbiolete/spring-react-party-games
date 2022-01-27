@@ -8,11 +8,11 @@ const ButtonPrimary = ({
 }) => {
   return (
     <button
-      className="px-2 py-1.5 bg-blue-500 border-2 border-blue-500 rounded-full text-white hover:bg-transparent hover:border-blue-600 hover:text-blue-600 focus:outline-none transition ease-in-out duration-300"
+      className="flex-1 w-full px-2 py-1.5 bg-gray-700 border-2 border-transparent hover:border-gray-400 rounded-lg text-gray-100 hover:text-gray-200 focus:outline-none transition ease-in-out duration-300"
       type={type}
       onClick={onClick}
     >
-      <div className="flex items-center space-x-0.5">
+      <div className="flex items-center justify-center space-x-0.5">
         {children}
         <span className="p-0.5 uppercase text-xs font-semibold tracking-widest">
           {title}

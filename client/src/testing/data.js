@@ -26,6 +26,16 @@ const data = {
       image: null
     }
   ],
+  roomTypes: [
+    {
+      id: 0,
+      type: "public"
+    },
+    {
+      id: 1,
+      type: "private"
+    }
+  ],
   rooms: [
     {
       id: 0,

@@ -43,7 +43,7 @@ const Dashboard = () => {
         {currentTab === 'users' && (
           <div className="px-2 py-0.5 m-1 overflow-y-auto">
             {data.users.map((user) => (
-              <div className="flex items-center space-x-1">
+              <div key={user.id} className="flex items-center space-x-1">
                 <div className="text-xs text-white">
                   <span>
                     {user.username}
@@ -92,7 +92,7 @@ const Dashboard = () => {
         {currentTab === 'rooms' && (
           <div className="px-2 py-1.5 m-1 space-y-2 overflow-y-auto">
             {data.rooms.map((room) => (
-              <div className="flex items-center space-x-1">
+              <div key={room.id} className="flex items-center space-x-1">
                 <Link to={`/room/${room.id}`} className="text-xs text-white hover:text-gray-300 transition ease-in-out duration-500">
                   {room.name}
                 </Link>

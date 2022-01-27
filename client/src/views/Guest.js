@@ -6,7 +6,7 @@ import WrapperInput from '../components/molecules/WrapperInput';
 import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import LinkOutlineSecondary from '../components/atoms/LinkOutlineSecondary';
 
-export default function GuestAcc({ refreshPage }) {
+const Guest = ({ refreshPage }) => {
   const [mail, setMail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,31 +15,6 @@ export default function GuestAcc({ refreshPage }) {
   const history = useHistory();
 
 
-  const handleSubmit = (e) => {
-    var verify = true;
-    const user = {
-      "mail": username,
-      "username": username,
-      "password": username,
-      "type": type1,
-    };
-
-    if (mail == '') {
-      verify = false;
-    }
-
-    if (username == '') {
-      verify = false;
-    }
-
-    if (password == '') {
-      verify = false;
-    }
-
-    axios.post("http://localhost:8081/user", user).then((response) => console.log(response));
-    history.push("/rooms");
-
-  };
 
 
   return (
@@ -63,4 +38,6 @@ export default function GuestAcc({ refreshPage }) {
       </form>
     </WrapperForm>
   );
-}
+};
+
+export default Guest;

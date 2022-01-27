@@ -67,7 +67,6 @@ CREATE TABLE `party_games_db`.`connection` (
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-
 CREATE TABLE `party_games_db`.`chat` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `room_id` INT NOT NULL,
@@ -89,16 +88,14 @@ CREATE TABLE `party_games_db`.`chat` (
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-ALTER TABLE `party_games_db`.`connection` 
+ALTER TABLE `party_games_db`.`connection`
 ADD COLUMN `username` VARCHAR(45) NOT NULL AFTER `score`;
 
-
-ALTER TABLE `party_games_db`.`chat` 
+ALTER TABLE `party_games_db`.`chat`
 CHANGE COLUMN `username` `username` VARCHAR(45) NOT NULL ;
 
-ALTER TABLE `party_games_db`.`connection` 
+ALTER TABLE `party_games_db`.`connection`
 DROP COLUMN `seed`;
 
-ALTER TABLE `party_games_db`.`room` 
+ALTER TABLE `party_games_db`.`room`
 ADD COLUMN `seed` INT NOT NULL AFTER `state`;
-

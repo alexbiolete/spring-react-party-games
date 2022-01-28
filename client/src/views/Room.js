@@ -328,7 +328,7 @@ const Room = ({ refreshPage }) => {
               </>
             )}
             {currentTab === 'players' && (
-              <div className="w-full h-60 bg-gray-900 rounded-lg overflow-hidden">
+              <div className="w-full h-full bg-gray-900 rounded-lg overflow-hidden">
                 <div className="px-2 py-0.5 m-1 overflow-y-auto">
                   {players.map((user) => (
                     <div className="flex items-center space-x-1">

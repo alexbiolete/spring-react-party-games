@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import WrapperInput from '../molecules/WrapperInput';
 import ButtonPrimary from '../atoms/ButtonPrimary';
@@ -13,6 +12,7 @@ const ModalCreateRoom = ({
   const DEFAULT_MAX_PLAYERS = 10;
   const DEFAULT_TYPE = "private";
   const DEFAULT_STATE = "waiting";
+  const MAX_RAND_VALUE = 9999;
 
   const [name, setName] = useState('');
   const [maxPlayers, setMaxPlayers] = useState(DEFAULT_MAX_PLAYERS);
@@ -31,7 +31,7 @@ const ModalCreateRoom = ({
       adminName: sessionStorage.getItem('user_username'),
       gameId: parseInt(gameId),
       name: name,
-      // seed: Math.random(),
+      seed: Math.floor(Math.random() * MAX_RAND_VALUE),
       type: type,
       state: DEFAULT_STATE,
       max_users: parseInt(maxPlayers)
@@ -70,7 +70,7 @@ const ModalCreateRoom = ({
                   <WrapperInput
                     id="max_users"
                     title="Max. users"
-                    value={DEFAULT_MAX_PLAYERS}
+                    // value={DEFAULT_MAX_PLAYERS}
                     onChange={(e) => setMaxPlayers(e.target.value)}
                     // value={name}
                   />
@@ -127,12 +127,6 @@ const ModalCreateRoom = ({
       </div>
     </div>
   )
-};
-
-ModalCreateRoom.propTypes = {
-  showModalAddItem: PropTypes.bool,
-  setShowModalAddItem: PropTypes.func,
-  onAdd: PropTypes.func
 };
 
 export default ModalCreateRoom;

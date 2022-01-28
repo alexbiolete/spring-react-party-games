@@ -7,6 +7,7 @@ const RoomCard = ({ room }) => {
   const game = data.games.find(game => game.id === room.gameId);
 
   const [players, setPlayers] = useState([]);
+  const [dataChat, setDataChat] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8081/user/all/room?roomId=" + room.id)
@@ -14,6 +15,12 @@ const RoomCard = ({ room }) => {
       console.log(response.data);
       setPlayers(response.data);
     });
+
+    axios.get("http://localhost:8081/chat/all/room?roomId=" + room.id)
+      .then(response => {
+        console.log(response.data);
+        setDataChat(response.data);
+      });
   }, []);
 
   return (
@@ -29,14 +36,14 @@ const RoomCard = ({ room }) => {
           {room.name}
         </h3>
         <span className="px-1.5 py-0.5 flex items-center space-x-1 rounded-full" style={{ backgroundColor: '#18202A' }}>
-          {room.state === 'playing' && (
+          {/* {room.state === 'playing' && (
             <>
               <div>
                 <div className="w-1.5 h-1.5 animate-ping absolute bg-green-600 rounded-full"></div>
                 <div className="w-1.5 h-1.5 relative bg-green-600 rounded-full"></div>
               </div>
               <span className="font-semibold tracking-wider uppercase text-xs text-green-600">
-                {room.state}
+                {'Playing'}
               </span>
             </>
           )}
@@ -44,7 +51,7 @@ const RoomCard = ({ room }) => {
             <>
               <div className="w-1.5 h-1.5 animate-pulse bg-yellow-600 rounded-full"></div>
               <span className="font-semibold tracking-wider uppercase text-xs text-yellow-600">
-                {room.state}
+                {'Waiting'}
               </span>
             </>
           )}
@@ -52,7 +59,34 @@ const RoomCard = ({ room }) => {
             <>
               <div className="w-1.5 h-1.5 bg-transparent border border-red-700 rounded-full"></div>
               <span className="font-semibold tracking-wider uppercase text-xs text-red-700">
-                {room.state}
+                {'Offline'}
+              </span>
+            </>
+          )} */}
+          {dataChat.length > 0 && players.length > 0 && (
+            <>
+              <div>
+                <div className="w-1.5 h-1.5 animate-ping absolute bg-green-600 rounded-full"></div>
+                <div className="w-1.5 h-1.5 relative bg-green-600 rounded-full"></div>
+              </div>
+              <span className="font-semibold tracking-wider uppercase text-xs text-green-600">
+                {'Playing'}
+              </span>
+            </>
+          )}
+          {dataChat.length === 0 && players.length > 0 && (
+            <>
+              <div className="w-1.5 h-1.5 animate-pulse bg-yellow-600 rounded-full"></div>
+              <span className="font-semibold tracking-wider uppercase text-xs text-yellow-600">
+                {'Waiting'}
+              </span>
+            </>
+          )}
+          {players.length === 0 && (
+            <>
+              <div className="w-1.5 h-1.5 bg-transparent border border-red-700 rounded-full"></div>
+              <span className="font-semibold tracking-wider uppercase text-xs text-red-700">
+                {'Offline'}
               </span>
             </>
           )}

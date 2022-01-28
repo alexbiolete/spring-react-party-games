@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { dbApiUrl } from './app/config';
 import Guest from "./layouts/Guest";
 import Auth from "./layouts/Auth";
 import Home from "./views/Home";
@@ -12,21 +10,9 @@ import Login from "./views/Login";
 import Dashboard from './views/Dashboard';
 
 const App = () => {
-  const [authenticatedUserId, setAuthenticatedUserId] = useState('');
-  const [authenticatedUserName, setAuthenticatedUserName] = useState('');
-  const [authenticatedUserUsername, setAuthenticatedUserUsername] = useState('');
-  const [authenticatedUserEmail, setAuthenticatedUserEmail] = useState('');
-  const [authenticatedUserRole, setAuthenticatedUserRole] = useState('');
-
-  const [users, setUsers] = useState([]);
-
   const refreshPage = () => {
     window.location.reload(false);
   }
-
-  const createRoom = () => {
-    return ('')
-  };
 
   return (
     <BrowserRouter>
@@ -34,17 +20,17 @@ const App = () => {
         <Switch>
           <Route path="/" exact>
             <Guest>
-              <Login setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
+              <Login refreshPage={refreshPage} />
             </Guest>
           </Route>
           <Route path="/register" exact>
             <Guest>
-              <Register setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
+              <Register refreshPage={refreshPage} />
             </Guest>
           </Route>
           <Route path="/login" exact>
             <Guest>
-              <Login setAuthenticatedUserName={setAuthenticatedUserName} refreshPage={refreshPage} />
+              <Login refreshPage={refreshPage} />
             </Guest>
           </Route>
           <Route path="*" component={NotFound} />
@@ -52,47 +38,27 @@ const App = () => {
       ) : (
         <Switch>
           <Route path="/" exact>
-            <Auth
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-              createRoom={createRoom}
-            >
+            <Auth refreshPage={refreshPage}>
               <Home />
             </Auth>
           </Route>
           <Route path="/home" exact>
-            <Auth
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-              createRoom={createRoom}
-            >
+            <Auth refreshPage={refreshPage}>
               <Home />
             </Auth>
           </Route>
           <Route path="/rooms" exact>
-            <Auth
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-              createRoom={createRoom}
-            >
+            <Auth refreshPage={refreshPage}>
               <Rooms />
             </Auth>
           </Route>
           <Route path="/room/:id" exact>
-            <Auth
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-              createRoom={createRoom}
-            >
+            <Auth refreshPage={refreshPage}>
               <Room refreshPage={refreshPage} />
             </Auth>
           </Route>
           <Route path="/dashboard" exact>
-            <Auth
-              setAuthenticatedUserName={setAuthenticatedUserName}
-              refreshPage={refreshPage}
-              createRoom={createRoom}
-            >
+            <Auth refreshPage={refreshPage}>
               <Dashboard />
             </Auth>
           </Route>

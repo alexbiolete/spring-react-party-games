@@ -1,9 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { dbApiUrl } from "../app/config";
 import data from "../testing/data";
 
 const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState('users');
+
+  const [users, setUsers] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${dbApiUrl}/user/all`)
+      .then(response => {
+        console.log(response.data);
+        setUsers(response.data);
+      });
+
+    axios.get(`${dbApiUrl}/room/all`)
+      .then(response => {
+        console.log(response.data);
+        setRooms(response.data);
+      });
+
+    axios.get(`${dbApiUrl}/game/all`)
+      .then(response => {
+        console.log(response.data);
+        setGames(response.data);
+      });
+  }, []);
 
   return (
     <div className="p-4 bg-gray-800 rounded-xl space-y-4">
@@ -41,10 +67,10 @@ const Dashboard = () => {
       </div>
       <div className="w-full bg-gray-900 rounded-lg overflow-hidden">
         {currentTab === 'users' && (
-          <div className="px-2 py-0.5 m-1 overflow-y-auto">
-            {data.users.map((user) => (
-              <div key={user.id} className="flex items-center space-x-1">
-                <div className="text-xs text-white">
+          <div className="px-4 py-2 m-1 space-y-2 overflow-y-auto">
+            {users.map((user) => (
+              <div key={user.id} className="flex items-center space-x-3">
+                <div className="text-sm text-white">
                   <span>
                     {user.username}
                   </span>
@@ -55,13 +81,13 @@ const Dashboard = () => {
                 <div>
                   {user.type === 'admin' ? (
                     <button title="Remove admin" className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clipRule="evenodd" />
                       </svg>
                     </button>
                   ) : (
                     <button title="Make admin" className="text-green-500 hover:text-green-300 transition ease-in-out duration-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
                     </button>
@@ -70,7 +96,7 @@ const Dashboard = () => {
                 <div>
                   {user.type !== 'admin' && (
                     <button title="Ban" className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
                       </svg>
                     </button>
@@ -79,7 +105,7 @@ const Dashboard = () => {
                 <div>
                   {user.type !== 'admin' && (
                     <button title="Remove" className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
                     </button>
@@ -90,19 +116,19 @@ const Dashboard = () => {
           </div>
         )}
         {currentTab === 'rooms' && (
-          <div className="px-2 py-1.5 m-1 space-y-2 overflow-y-auto">
-            {data.rooms.map((room) => (
-              <div key={room.id} className="flex items-center space-x-1">
-                <Link to={`/room/${room.id}`} className="text-xs text-white hover:text-gray-300 transition ease-in-out duration-500">
+          <div className="px-4 py-2 m-1 space-y-3 overflow-y-auto">
+            {rooms.map((room) => (
+              <div key={room.id} className="flex items-center space-x-3">
+                <Link to={`/room/${room.id}`} className="text-sm text-white hover:text-gray-300 transition ease-in-out duration-500">
                   {room.name}
                 </Link>
                 <button title="Modify" className="text-yellow-500 hover:text-yellow-300 transition ease-in-out duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                   </svg>
                 </button>
                 <button title="Remove" className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
@@ -111,21 +137,21 @@ const Dashboard = () => {
           </div>
         )}
         {currentTab === 'games' && (
-          <div className="px-2 py-1.5 m-1 space-y-2 overflow-y-auto">
-            {data.games.map((game) => (
-              <div className="flex items-center space-x-1">
-                <div className="text-xs text-white">
+          <div className="px-4 py-2 m-1 space-y-3 overflow-y-auto">
+            {games.map((game) => (
+              <div className="flex items-center space-x-3">
+                <div className="text-sm text-white">
                   <span>
                     {game.name}
                   </span>
                 </div>
                 <button title="Modify" className="text-yellow-500 hover:text-yellow-300 transition ease-in-out duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                   </svg>
                 </button>
                 <button title="Remove" className="text-red-600 hover:text-red-400 transition ease-in-out duration-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>

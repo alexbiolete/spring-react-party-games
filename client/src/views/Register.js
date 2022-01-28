@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import { dbApiUrl } from "../app/config";
 import WrapperForm from '../components/molecules/WrapperForm';
 import WrapperInput from '../components/molecules/WrapperInput';
 import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import LinkOutlineSecondary from '../components/atoms/LinkOutlineSecondary';
 
 const Register = ({ refreshPage }) => {
+  const DEFAULT_USER_TYPE = "user";
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("registered");
+  const userType = DEFAULT_USER_TYPE;
 
   const history = useHistory();
 
   const handleRegister = (e) => {
-    var verify = true;
     const user = {
       username: username,
       mail: email,
@@ -23,19 +25,7 @@ const Register = ({ refreshPage }) => {
       type: userType,
     };
 
-    if (username == '') {
-      verify = false;
-    }
-
-    if (email == '') {
-      verify = false;
-    }
-
-    if (password == '') {
-      verify = false;
-    }
-
-    axios.post("http://localhost:8081/user", user).then((response) => console.log(response));
+    axios.post(`${dbApiUrl}/user`, user).then((response) => console.log(response));
     history.push("/");
     refreshPage();
   };

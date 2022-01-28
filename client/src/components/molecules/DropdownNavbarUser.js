@@ -7,7 +7,6 @@ import ButtonSimpleDanger from '../atoms/ButtonSimpleDanger';
 
 const DropdownNavbarUser = ({
   showUserMenu,
-  setAuthenticatedUserName,
   refreshPage,
   createRoom
 }) => {
@@ -34,8 +33,6 @@ const DropdownNavbarUser = ({
               sessionStorage.removeItem('user_name');
               sessionStorage.removeItem('user_username');
               sessionStorage.removeItem('user_email');
-
-              setAuthenticatedUserName("Account");
 
               history.push("/");
               refreshPage();

@@ -1,57 +1,62 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Separator from "../components/atoms/Separator";
-import WrapperInput from "../components/molecules/WrapperInput";
-import ButtonPrimary from '../components/atoms/ButtonPrimary';
 import axios from 'axios';
 import data from "../testing/data";
+import { dbApiUrl } from "../app/config";
 
 const Room = ({ refreshPage }) => {
   const { id } = useParams();
-  const [room, setRoom] = useState(data.rooms.find(room => room.id === parseInt(id)));
-  const game = data.games.find(game => game.id === room.gameId);
+  // const [room, setRoom] = useState(data.rooms.find(room => room.id === parseInt(id)));
+  const [room, setRoom] = useState(data.rooms[1]);
+  // const [game, setGame] = useState(data.games.find(game => game.id === room.gameId));
+  const [game, setGame] = useState(data.games[1]);
   const [myMessage, setMyMessage] = useState("");
 
   const [currentTab, setCurrentTab] = useState('chat');
-  const [username, setUsername] = useState(sessionStorage.getItem('user_username'));
-  const [userId, setUserId] = useState(sessionStorage.getItem('user_id'));
+  const username = sessionStorage.getItem('user_username');
+  const userId = sessionStorage.getItem('user_id');
 
   const [players, setPlayers] = useState([]);
   const [dataChat, setDataChat] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8081/room?roomId=" + id)
+    axios.get(`${dbApiUrl}/room?roomId=` + id)
       .then(response => {
         console.log(response.data);
         setRoom(response.data);
       });
 
-    axios.get("http://localhost:8081/chat/all/room?roomId=" + id)
+    axios.get(`${dbApiUrl}/game?gameId=` + room.id)
       .then(response => {
         console.log(response.data);
-        setDataChat(response.data);
+        setGame(response.data);
       });
 
-    const conn = {
-      "role": "Player",
-      "roomId": id,
-      "score": 0,
-      "userId": userId,
-      "username": username
-    }
+  axios.get("http://localhost:8081/chat/all/room?roomId=" + id)
+    .then(response => {
+      console.log(response.data);
+      setDataChat(response.data);
+    });
 
-    axios.post("http://localhost:8081/connection", conn)
+  const conn = {
+    "role": "Player",
+    "roomId": id,
+    "score": 0,
+    "userId": userId,
+    "username": username
+  }
+
+  axios.post("http://localhost:8081/connection", conn)
+    .then(response => {
+      axios.get("http://localhost:8081/user/all/room?roomId=" + id)
       .then(response => {
-        axios.get("http://localhost:8081/user/all/room?roomId=" + id)
-        .then(response => {
-          console.log(response.data);
-          setPlayers(response.data);
-        });
         console.log(response.data);
+        setPlayers(response.data);
       });
-
+      console.log(response.data);
+    });
   }, []);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,7 +113,7 @@ const Room = ({ refreshPage }) => {
             )}
           </div>
           <div className="flex items-center space-x-0.5">
-            {room.nr_users > 0 ? (
+            {players.length > 0 ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
               </svg>
@@ -118,7 +123,7 @@ const Room = ({ refreshPage }) => {
               </svg>
             )}
             <span className="mt-0.5">
-              {room.nr_users}{' / '}{room.max_users}
+              {players.length}{' / '}{room.max_users}
             </span>
           </div>
         </div>
@@ -226,7 +231,7 @@ const Room = ({ refreshPage }) => {
               </svg>
             )}
             <span className="mt-0.5">
-              {room.userCount}{' / '}{room.userMax}
+              {room.nr_users}{' / '}{room.max_users}
             </span>
           </div>
         </div>
@@ -239,10 +244,14 @@ const Room = ({ refreshPage }) => {
               {game.name}
             </span>
             <div className="w-full bg-gray-900 rounded-lg object-cover overflow-hidden">
-              <img className="mx-auto h-full" src={`https://picsum.photos/seed/${room.seed}/200/300`} />
+              <img
+                src={`https://picsum.photos/seed/${room.seed}/800/600`}
+                alt={room.seed}
+                className="mx-auto h-full"
+              />
             </div>
           </div>
-          <div className="col-span-1 flex flex-col p-4 bg-gray-800 rounded-xl space-y-4">
+          <div className="col-span-1 h-96 flex flex-col p-4 bg-gray-800 rounded-xl space-y-4">
             <div className="w-full flex items-center justify-between space-x-2">
               <button className={`flex-1 flex items-center justify-center space-x-0.5 px-3 py-1.5 bg-gray-900 border-2 ${currentTab === 'chat' ? 'border-gray-700' : 'border-transparent'} transition ease-in-out duration-500 rounded-lg font-medium tracking-wider uppercase text-center text-gray-300 text-xs`} onClick={() => setCurrentTab('chat')}>
                 <span>
@@ -268,20 +277,6 @@ const Room = ({ refreshPage }) => {
             </div>
             {currentTab === 'chat' && (
               <>
-                <div className="w-full h-full bg-gray-900 rounded-lg overflow-hidden">
-                  <div className="px-2 m-1 overflow-y-scroll">
-                    {dataChat.map((chatMessage) => (
-                      <div key={chatMessage.id}>
-                        <span className="inline text-xs text-blue-400">
-                          {chatMessage.username}{': '}
-                        </span>
-                        <p className="inline font-extralight text-xs">
-                          {chatMessage.message}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
                 <div className="relative w-full">
                   <input
                     id="message"
@@ -302,11 +297,24 @@ const Room = ({ refreshPage }) => {
                     </svg>
                   </button>
                 </div>
+                <div className="w-full h-full bg-gray-900 rounded-lg overflow-y-auto">
+                  <div className="px-3 py-2 -mt-0.5 m-1">
+                    {dataChat.slice(0).reverse().map((chatMessage) => (
+                      <div key={chatMessage.id}>
+                        <span className={`inline text-xs text-red-600`}>
+                          {chatMessage.username}{': '}
+                        </span>
+                        <p className="inline font-extralight text-xs">
+                          {chatMessage.message}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 {sessionStorage.getItem('user_type') === 'admin' && (
-                  // <ButtonPrimary title="Guessed" type="submit" onClick={(e) => handleSubmit2(e)} />
                   <button
                     type="submit"
-                    className="flex-1 flex items-center justify-center space-x-0.5 w-full px-2 py-1.5 bg-gray-700 border-2 border-transparent hover:border-gray-400 rounded-lg text-gray-100 hover:text-gray-200 focus:outline-none transition ease-in-out duration-300"
+                    className="flex items-center justify-center space-x-0.5 w-full px-2 py-1.5 bg-gray-700 border-2 border-transparent hover:border-gray-400 rounded-lg text-gray-100 hover:text-gray-200 focus:outline-none transition ease-in-out duration-300"
                     onClick={(e) => handleSubmit2(e)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

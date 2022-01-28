@@ -52,10 +52,10 @@ const ModalCreateRoom = ({
 
   return (
     <div className="fixed left-0 top-0 right-0 bottom-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="shadow-lg overflow-hidden sm:rounded-2xl">
+      <div className="max-w-lg w-full overflow-hidden sm:rounded-xl">
         <form onSubmit={onSubmit}>
           <div className="p-2 md:p-4 bg-gray-800">
-            <div className="max-w-xl space-y-6">
+            <div className="space-y-6">
               <div className="px-2 space-y-6">
                 <span className="font-medium tracking-widest text-base">
                   {'Create room'}

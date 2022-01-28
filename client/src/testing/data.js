@@ -1,13 +1,8 @@
 const data = {
   games: [
     {
-      id: 0,
-      name: 'Skribbl',
-      image: null
-    },
-    {
       id: 1,
-      name: 'Upcoming game',
+      name: 'Guess the password',
       image: null
     },
     {
@@ -22,6 +17,11 @@ const data = {
     },
     {
       id: 4,
+      name: 'Upcoming game',
+      image: null
+    },
+    {
+      id: 5,
       name: 'Upcoming game',
       image: null
     }
@@ -40,74 +40,74 @@ const data = {
     {
       id: 0,
       name: 'With my buddies',
-      gameId: 0,
+      gameId: 1,
       state: 'playing',
       type: 'private',
-      userCount: 9,
-      userMax: 16
+      nr_users: 9,
+      max_users: 16
     },
     {
       id: 1,
       name: 'Drunk kings',
-      gameId: 0,
+      gameId: 1,
       state: 'playing',
       type: 'public',
-      userCount: 5,
-      userMax: 8
+      nr_users: 5,
+      max_users: 8
     },
     {
       id: 2,
       name: 'Dorms party',
-      gameId: 0,
+      gameId: 1,
       state: 'waiting',
       type: 'private',
-      userCount: 0,
-      userMax: 16
+      nr_users: 0,
+      max_users: 16
     },
     {
       id: 3,
       name: 'Currently sausage party, need some girls',
-      gameId: 0,
+      gameId: 1,
       state: 'waiting',
       type: 'public',
-      userCount: 7,
-      userMax: 16
+      nr_users: 7,
+      max_users: 16
     },
     {
       id: 4,
       name: 'Anti-social social club',
-      gameId: 0,
+      gameId: 1,
       state: 'playing',
       type: 'public',
-      userCount: 3,
-      userMax: 4
+      nr_users: 3,
+      max_users: 4
     },
     {
       id: 5,
       name: 'Free for all',
-      gameId: 0,
+      gameId: 1,
       state: 'waiting',
       type: 'public',
-      userCount: 1,
-      userMax: 16
+      nr_users: 1,
+      max_users: 16
     },
     {
       id: 6,
       name: 'Dorms party',
-      gameId: 0,
+      gameId: 1,
       state: 'playing',
       type: 'private',
-      userCount: 10,
-      userMax: 10
+      nr_users: 10,
+      max_users: 10
     },
     {
       id: 7,
       name: 'The regular ones',
-      gameId: 0,
+      gameId: 1,
       state: 'offline',
       type: 'public',
-      userCount: 0,
-      userMax: 20
+      nr_users: 0,
+      max_users: 20
     }
   ],
   users: [

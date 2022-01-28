@@ -2,11 +2,7 @@ import { useState } from 'react';
 import NavbarTabs from '../molecules/NavbarTabs';
 import DropdownNavbarUser from '../molecules/DropdownNavbarUser';
 
-const Navbar = ({
-  setAuthenticatedUserName,
-  refreshPage,
-  createRoom
-}) => {
+const Navbar = ({ refreshPage }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
@@ -42,9 +38,7 @@ const Navbar = ({
                 </button>
                 <DropdownNavbarUser
                   showUserMenu={showUserMenu}
-                  setAuthenticatedUserName={setAuthenticatedUserName}
                   refreshPage={refreshPage}
-                  // createRoom={createRoom}
                 />
               </div>
             </div>

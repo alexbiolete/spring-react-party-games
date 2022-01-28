@@ -24,7 +24,7 @@ const Login = ({ setAuthenticatedUserName, refreshPage }) => {
 
     axios.post("http://localhost:8081/user/login", user)
       .then((response) => {
-        if (response.data.username == "" && response.data.password == "") {
+        if (response.data.username === "" && response.data.password === "") {
           history.push("/login");
           refreshPage();
         }
@@ -45,24 +45,14 @@ const Login = ({ setAuthenticatedUserName, refreshPage }) => {
   };
 
   const handleGuestLogin = (e) => {
-    var verify = true;
-
     const user = {
       username: username,
       type: "guest",
     };
 
-    if (username == '') {
-      verify = false;
-    }
-
-    if (password == '') {
-      verify = false;
-    }
-
     axios.post("http://localhost:8081/user", user)
       .then((response) => {
-        if (response.data.username == "" && response.data.password == "") {
+        if (response.data.username === "" && response.data.password === "") {
           history.push("/login");
           refreshPage();
         }

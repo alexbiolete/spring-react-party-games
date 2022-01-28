@@ -50,6 +50,7 @@ const DropdownNavbarUser = ({
       )}
 
       <ModalCreateRoom
+        refreshPage={refreshPage}
         showModalCreateRoom={showModalCreateRoom}
         setShowModalCreateRoom={setShowModalCreateRoom}
         onAdd={createRoom}

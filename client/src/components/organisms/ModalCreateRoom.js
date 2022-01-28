@@ -5,6 +5,7 @@ import ButtonPrimary from '../atoms/ButtonPrimary';
 import ButtonSecondary from '../atoms/ButtonSecondary';
 
 const ModalCreateRoom = ({
+  refreshPage,
   showModalCreateRoom,
   setShowModalCreateRoom,
   onAdd
@@ -43,7 +44,8 @@ const ModalCreateRoom = ({
     //   name
     // })
 
-    setShowModalCreateRoom(!showModalCreateRoom)
+    setShowModalCreateRoom(!showModalCreateRoom);
+    refreshPage();
   }
 
   if (!showModalCreateRoom) {

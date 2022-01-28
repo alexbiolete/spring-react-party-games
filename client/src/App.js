@@ -59,7 +59,7 @@ const App = () => {
           </Route>
           <Route path="/dashboard" exact>
             <Auth refreshPage={refreshPage}>
-              <Dashboard />
+              <Dashboard refreshPage={refreshPage} />
             </Auth>
           </Route>
           <Route path="*" exact>

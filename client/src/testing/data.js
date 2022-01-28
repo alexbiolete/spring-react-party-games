@@ -2,7 +2,7 @@ const data = {
   games: [
     {
       id: 1,
-      name: 'Guess the password',
+      name: 'Guess the picture',
       image: null
     },
     {

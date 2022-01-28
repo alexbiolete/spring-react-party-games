@@ -8,7 +8,7 @@ const Navbar = ({ refreshPage }) => {
   return (
     <>
       <nav className="z-50 fixed top-0 bg-gray-900 w-full h-16 border-b-2 border-gray-800 flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-8 flex">
           <div className="flex-1 inline-flex items-center justify-begin">
             <div className="flex-1 inline-flex md:hidden items-center justify-begin">
             </div>
